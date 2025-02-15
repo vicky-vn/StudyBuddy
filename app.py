@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from db import get_user_input_collection, get_summary_collection
+from flask_cors import CORS
 app = Flask(__name__)
 
+CORS(app)
 @app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'
