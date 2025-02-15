@@ -1,18 +1,51 @@
-<div class="row w-100 h-75">
-  <div class="summarize-window col w-50 mt-3 ">
+<div class="row w-100 h-75 d-flex align-items-center">
+  <form class="summarize-window col w-50 mt-3 " [formGroup]="summaryForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>
-      <input type="text" class="form-control" id="name">
+      <input type="text" class="form-control" formControlName="session_name" id="name">
     </div>
     <div class=" mb-3">
       <label for="userInput" class="form-label">To summarize:</label>
-      <textarea type="textarea" class="form-control" id="userInput" rows="10"></textarea>
+      <textarea type="textarea" class="form-control" formControlName="input_text" id="userInput" rows="10"></textarea>
     </div>
-    <button type="button" class="btn btn-primary">Summarize!</button>
-  </div>
-  <div class="summary-output border w-50 mt-3">
-    <p>
-      Summary example
+    <div class="mb-3">
+      <p>Difficulty Level:</p>
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn"
+          [class.btn-outline-primary]="selectedDifficulty !== 'Beginner'"
+          [class.btn-primary]="selectedDifficulty === 'Beginner'"
+          (click)="selectDifficulty('Beginner')"
+        >
+          Beginner
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-outline-primary]="selectedDifficulty !== 'Intermediate'"
+          [class.btn-primary]="selectedDifficulty === 'Intermediate'"
+          (click)="selectDifficulty('Intermediate')"
+        >
+          Intermediate
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-outline-primary]="selectedDifficulty !== 'Professional'"
+          [class.btn-primary]="selectedDifficulty === 'Professional'"
+          (click)="selectDifficulty('Professional')"
+        >
+          Professional
+        </button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Summarize!</button>
+  </form>
+  <div class="summary-output w-50 mt-3">
+    <p>Summary:</p>
+    <p class="border summary-output  p-3">
+      Your summary will be here!
     </p>
   </div>
 </div>

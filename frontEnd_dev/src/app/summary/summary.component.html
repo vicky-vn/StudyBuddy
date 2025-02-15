@@ -1,18 +1,51 @@
-<div class="row w-100 h-75">
-  <div class="summarize-window col w-50 mt-3 ">
+<div class="row w-100 h-100 d-flex align-items-center">
+  <form class="summarize-window col w-50 mt-3 " [formGroup]="summaryForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <label for="name" class="form-label">Name:</label>
-      <input type="text" class="form-control" id="name" value="{{summary?.name}}">
+      <label for="session_name" class="form-label">Name:</label>
+      <input type="text" class="form-control" formControlName="session_name" id="session_name" name="session_name" value="{{summary?.name}}">
     </div>
     <div class=" mb-3">
-      <label for="userInput" class="form-label">To summarize:</label>
-      <textarea type="textarea" class="form-control" id="userInput" rows="10"></textarea>
+      <label for="input_text" class="form-label fw-bold">To summarize:</label>
+      <textarea type="textarea" class="form-control" formControlName="input_text" id="input_text" name="input_text" rows="10"></textarea>
     </div>
-    <button type="button" class="btn btn-primary">Update Summary!</button>
-  </div>
-  <div class="summary-output border w-50 mt-3">
-    <p>
-      {{summary?.content}}
+      <div class="mb-3">
+          <p>Difficulty Level:</p>
+          <div class="btn-group">
+              <button
+                      type="button"
+                      class="btn"
+                      [class.btn-outline-primary]="selectedDifficulty !== 'Beginner'"
+                      [class.btn-primary]="selectedDifficulty === 'Beginner'"
+                      (click)="selectDifficulty('Beginner')"
+              >
+                  Beginner
+              </button>
+              <button
+                      type="button"
+                      class="btn"
+                      [class.btn-outline-primary]="selectedDifficulty !== 'Intermediate'"
+                      [class.btn-primary]="selectedDifficulty === 'Intermediate'"
+                      (click)="selectDifficulty('Intermediate')"
+              >
+                  Intermediate
+              </button>
+              <button
+                      type="button"
+                      class="btn"
+                      [class.btn-outline-primary]="selectedDifficulty !== 'Professional'"
+                      [class.btn-primary]="selectedDifficulty === 'Professional'"
+                      (click)="selectDifficulty('Professional')"
+              >
+                  Professional
+              </button>
+          </div>
+      </div>
+    <button type="submit" class="btn btn-primary">Update Summary</button>
+  </form>
+  <div class="summary-output w-50 mt-3">
+    <p>Summary:</p>
+    <p class="border summary-output  p-3">
+      {{ summary?.content }}
     </p>
   </div>
 </div>

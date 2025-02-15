@@ -1,10 +1,13 @@
-<nav class="h-100 d-flex flex-column justify-content-between">
-  <div>
-    <p *ngFor="let summary of data" class="shadow-sm p-2">
-      <a [routerLink]="['/summary', summary.id]">{{ summary.name }}</a>
-    </p>
-  </div>
-    <div class="border-top">
+<div class="h-100 d-flex flex-column">
+  <h1 class="py-2 mb-3 border-bottom text-center">StudyBuddy</h1>
+  <nav class="h-100 d-flex flex-column justify-content-between">
+    <div>
+      <p *ngFor="let summary of data" class="shadow-sm p-0 rounded-2">
+        <a [routerLink]="['/summary', summary.id]" class="rounded-2 p-2">{{ summary.name }}</a>
+      </p>
+    </div>
+    <div class="border-top p-2">
       <button [routerLink]="'/summary'" class="btn btn-sm btn-primary mx-auto my-2 p-2">New Summary</button>
     </div>
-</nav>
+  </nav>
+</div>

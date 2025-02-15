@@ -6,6 +6,7 @@ import { AppComponent } from './app/app.component';
 import {provideRouter, Routes} from '@angular/router';
 import {SummaryComponent} from './app/summary/summary.component';
 import {SummarizeComponent} from './app/summarize/summarize.component';
+import {provideHttpClient} from "@angular/common/http";
 
 const routes: Routes = [
   { path: '', redirectTo: '/summary', pathMatch: 'full' },
@@ -14,5 +15,5 @@ const routes: Routes = [
 ];
 
 
-bootstrapApplication(AppComponent, {providers: [provideRouter(routes)]})
+bootstrapApplication(AppComponent, {providers: [provideRouter(routes), provideHttpClient()]})
   .catch((err) => console.error(err));
