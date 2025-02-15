@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from db import get_details
+from db import get_user_input_collection, get_summary_collection
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,10 +21,24 @@ def post_user_input():
         "input_text": input_text
     }
 
-    collection = get_details()
+    collection = get_user_input_collection()
     collection.insert_one(input_data)
 
     return jsonify({"message": "User input added successfully!"}), 201
+
+
+@app.route('/get_user_input', methods=['GET'])
+def get_user_input():
+
+    collection = get_user_input_collection()
+
+    data = list(collection.find())
+
+    for item in data:
+        item['_id'] = str(item['_id'])
+
+    return jsonify(data), 200
+
 
 if __name__ == '__main__':
     app.run()
