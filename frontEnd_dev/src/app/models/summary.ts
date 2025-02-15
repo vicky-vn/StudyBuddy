@@ -1,5 +1,5 @@
 export interface Summary {
-  id:Number,
-  name:String,
-  content:String
+  _id:String,
+  input_text:String,
+  session_name:String
 }

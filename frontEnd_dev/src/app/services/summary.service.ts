@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import {catchError, Observable, of, throwError} from 'rxjs';
+import {catchError, map, Observable, of, throwError} from 'rxjs';
 import {Summary} from '../models/summary';
-import {mockData} from '../shared/mock-data';
+// import {mockData} from '../shared/mock-data';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SummaryService {
-  summaries = mockData;
+  // summaries = mockData;
   apiUrl = "http://127.0.0.1:5000"
   constructor(private http:HttpClient) { }
 
   getSummaries():Observable<Summary[]> {
-    return of(this.summaries)
+    return this.http.get<Summary[]>(this.apiUrl + "/get_user_input")
   }
 
-  getSummaryById(id: Number):Observable<Summary | undefined> {
-    const summary = this.summaries.find(s => s.id === id);
-    return of(summary);
+  getSummaryById(id: string | null):Observable<Summary | undefined> {
+    return this.getSummaries().pipe(
+      map((summaries: Summary[]) =>
+        summaries.find((summary: Summary) => summary._id === id)
+      )
+    );
   }
 
   addSummary(data:any) {

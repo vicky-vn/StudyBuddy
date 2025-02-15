@@ -32,7 +32,7 @@ export class SummaryComponent {
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-      this.summaryService.getSummaryById(Number(id)).subscribe((data) => {
+      this.summaryService.getSummaryById(id).subscribe((data) => {
         this.summary = data;
       });
     });

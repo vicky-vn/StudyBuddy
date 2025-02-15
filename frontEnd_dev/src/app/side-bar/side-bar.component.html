@@ -3,7 +3,7 @@
   <nav class="h-100 d-flex flex-column justify-content-between">
     <div>
       <p *ngFor="let summary of data" class="shadow-sm p-0 rounded-2">
-        <a [routerLink]="['/summary', summary.id]" class="rounded-2 p-2">{{ summary.name }}</a>
+        <a [routerLink]="['/summary', summary._id]" class="rounded-2 p-2">{{ summary.session_name }}</a>
       </p>
     </div>
     <div class="border-top p-2">

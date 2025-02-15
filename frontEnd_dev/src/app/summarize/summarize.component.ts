@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {SummaryService} from '../services/summary.service';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-summarize',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   standalone: true,
   templateUrl: './summarize.component.html',
@@ -14,6 +16,7 @@ import {SummaryService} from '../services/summary.service';
 })
 export class SummarizeComponent {
   selectedDifficulty: string | null = "Beginner";
+  error: string | null = null
   summaryForm: FormGroup;
 
   constructor(private fb: FormBuilder, private summaryService:SummaryService) {
@@ -30,6 +33,8 @@ export class SummarizeComponent {
   onSubmit() {
     if (this.summaryForm.valid) {
       this.summaryService.addSummary(this.summaryForm.value).subscribe()
+    } else {
+        this.error = "All fields must be filled!";
     }
   }
 
