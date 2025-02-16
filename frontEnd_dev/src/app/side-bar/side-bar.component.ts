@@ -3,6 +3,7 @@ import {NgForOf} from '@angular/common';
 import {SummaryService} from '../services/summary.service';
 import {Summary} from '../models/summary';
 import {RouterLink} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-side-bar',
@@ -15,12 +16,28 @@ import {RouterLink} from '@angular/router';
   styleUrl: './side-bar.component.css'
 })
 export class SideBarComponent {
-  data:Summary[] = [];
+  data: Summary[] = [];
+  private subscription: Subscription;
+
   constructor(private summaryService: SummaryService) {
+    this.subscription = this.summaryService.refreshNeeded$.subscribe(() => {
+      this.loadSummaries();
+    });
   }
 
   ngOnInit() {
-   this.summaryService.getSummaries().subscribe({next: (data: Summary[]) => this.data = data});
+    this.loadSummaries();
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  private loadSummaries() {
+    this.summaryService.getSummaries().subscribe({
+      next: (data: Summary[]) => this.data = data
+    });
+  }
 }

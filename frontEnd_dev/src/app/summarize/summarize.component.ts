@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {SummaryService} from '../services/summary.service';
 import {NgIf} from '@angular/common';
+import {SideBarComponent} from '../side-bar/side-bar.component';
 
 @Component({
   selector: 'app-summarize',
@@ -32,7 +33,7 @@ export class SummarizeComponent {
 
   onSubmit() {
     if (this.summaryForm.valid) {
-      this.summaryService.addSummary(this.summaryForm.value).subscribe()
+      this.summaryService.addSummary(this.summaryForm.value).subscribe();
     } else {
         this.error = "All fields must be filled!";
     }
