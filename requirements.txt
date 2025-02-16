@@ -20,6 +20,7 @@ idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.5
 jiter==0.8.2
+lxml==5.3.1
 MarkupSafe==3.0.2
 numpy==2.2.3
 openai==1.63.0
@@ -28,6 +29,8 @@ pyautogen==0.7.4
 pydantic==2.10.6
 pydantic_core==2.27.2
 pymongo==4.11.1
+PyMuPDF==1.25.3
+python-docx==1.1.2
 python-dotenv==1.0.1
 regex==2024.11.6
 requests==2.32.3
