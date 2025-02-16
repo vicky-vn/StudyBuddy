@@ -55,7 +55,6 @@ You must better adjust the complexity based on the user's requested difficulty l
 You must determine if the summary can be improved given the original message and chat history
 You must prompt/provide suggestion in bulletpoint format to SummaryAgent who will take your input and improve the summary""",
     llm_config={"config_list": config_list},
-    
 )
 
 
