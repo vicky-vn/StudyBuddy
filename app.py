@@ -39,7 +39,6 @@ def extract_text_from_docx(file):
 
 @app.route('/post_user_input', methods=['POST'])
 def post_user_input():
-    """Handles user input, either as text or a file upload."""
     collection = get_user_input_collection()
 
     if 'session_name' not in request.form:
@@ -47,6 +46,8 @@ def post_user_input():
 
     session_name = request.form['session_name']
     input_text = None
+
+    language = request.form.get('language', 'English')
 
     if 'file' in request.files:
         file = request.files['file']
@@ -76,11 +77,12 @@ def post_user_input():
     input_data = {
         "session_name": session_name,
         "input_text": input_text,
+        "language": language,
         "summary": None
     }
 
     inserted_id = collection.insert_one(input_data).inserted_id
-    return jsonify({"message": "User input added successfully!", "id": str(inserted_id)}), 201
+    return jsonify({"message": "User input added successfully!", "id": str(inserted_id), "language": language}), 201
 
 @app.route('/get_user_input', methods=['GET'])
 def get_user_input():
@@ -117,25 +119,26 @@ def summarize():
             return jsonify({"error": "No record found for the given ID."}), 404
 
         input_text = user_record['input_text']
-        difficulty_level = data.get('difficulty_level', 'Beginner')
+        difficulty_level = data.get('difficulty_level', 'Beginner')  # ✅ Default to Beginner
+        language = data.get('language', 'English')  # ✅ Default to English
 
-        print(f"Processing summary for id={record_id}, difficulty_level={difficulty_level}")  # Debug log
+        print(f"Processing summary for id={record_id}, difficulty_level={difficulty_level}, language={language}")  # Debug log
 
-        summarized_text = generate_summary(input_text, difficulty_level)
+        # ✅ Pass both `difficulty_level` and `language` to `generate_summary()`
+        summarized_text = generate_summary(input_text, difficulty_level, language)
 
         print(f"Generated Summary: {summarized_text}")  # Debug log
 
-        # Update the existing record with the generated summary
         collection.update_one(
             {"_id": object_id},
             {"$set": {"summary": summarized_text}}
         )
 
-        return jsonify({"id": record_id, "summary": summarized_text}), 200
+        return jsonify({"id": record_id, "summary": summarized_text, "language": language}), 200
 
     except Exception as e:
         print("Error:", e)
-        traceback.print_exc()
+        traceback.print_exc()  # Print the full error traceback
         return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
 
 if __name__ == '__main__':
