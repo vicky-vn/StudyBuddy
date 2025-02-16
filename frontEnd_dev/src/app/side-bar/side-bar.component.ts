@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import {NgClass, NgForOf, NgOptimizedImage} from '@angular/common';
 import {SummaryService} from '../services/summary.service';
 import {Summary} from '../models/summary';
 import {RouterLink} from '@angular/router';
@@ -10,7 +10,8 @@ import {Subscription} from 'rxjs';
   imports: [
     NgForOf,
     RouterLink,
-    NgClass
+    NgClass,
+    NgOptimizedImage
   ],
   templateUrl: './side-bar.component.html',
   standalone: true,

@@ -1,5 +1,9 @@
 <div class="h-100 d-flex flex-column position-fixed border">
-  <h1 class="p-3 mb-3 border-bottom text-center">StudyBuddy</h1>
+  <div class="p-3 mb-3 border-bottom text-center">
+      <img class="m-0" [ngSrc]="'assets/logo.png'" width="64" height="64">
+      <h1 class="mt-0 align">StudyBuddy</h1>
+  </div>
+<!--  <h1 >StudyBuddy</h1>-->
   <nav class="h-100 d-flex flex-column justify-content-between">
     <div class="summary-list">
       <p *ngFor="let summary of data" class="shadow-sm p-0 rounded-2">
