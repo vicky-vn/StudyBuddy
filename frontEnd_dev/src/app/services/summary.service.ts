@@ -37,7 +37,7 @@ export class SummaryService {
     );
   }
 
-  summarize(id: string, difficulty: string): Observable<{ id: string; summary: string }> {
+  summarize(id: string, difficulty: string, language:string): Observable<{ id: string; summary: string }> {
     const payload = {
       id,
       difficulty_level: difficulty

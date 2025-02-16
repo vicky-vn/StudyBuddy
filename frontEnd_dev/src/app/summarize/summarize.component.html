@@ -1,5 +1,5 @@
-<div class="row w-100 h-75 d-flex align-items-center">
-  <form class="summarize-window col w-50 mt-3 " [formGroup]="summaryForm" (ngSubmit)="onSubmit()">
+<div class="row w-100 h-75 d-flex">
+  <form class="summarize-window col w-50 mt-5 " [formGroup]="summaryForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>
       <input type="text" class="form-control" formControlName="session_name" id="name">
@@ -41,6 +41,20 @@
     </div>
 
     <div class="mb-3">
+      <label for="language" class="form-label">Language:</label>
+      <select class="form-select" id="language" formControlName="language">
+        <option selected value="English">English</option>
+        <option value="French">French</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Arabic">Arabic</option>
+        <option value="Russian">Russian</option>
+        <option value="Ukrainian">Ukrainian</option>
+        <option value="Chinese">Chinese</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
       <p>Difficulty Level:</p>
       <div class="btn-group">
         <button
@@ -75,7 +89,7 @@
     <button type="submit" class="btn btn-primary">Summarize!</button>
     <p *ngIf="error" class="alert alert-danger mt-3 text-center error">{{error}}</p>
   </form>
-  <div class="summary-output w-50 mt-3">
+  <div class="summary-output w-50 mt-5">
     <p>Summary:</p>
     <p class="border summary-output  p-3">
       Your summary will be here!

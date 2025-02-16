@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {NgClass, NgForOf} from '@angular/common';
 import {SummaryService} from '../services/summary.service';
 import {Summary} from '../models/summary';
 import {RouterLink} from '@angular/router';
@@ -9,7 +9,8 @@ import {Subscription} from 'rxjs';
   selector: 'app-side-bar',
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   templateUrl: './side-bar.component.html',
   standalone: true,
@@ -40,4 +41,5 @@ export class SideBarComponent {
       next: (data: Summary[]) => this.data = data
     });
   }
+
 }

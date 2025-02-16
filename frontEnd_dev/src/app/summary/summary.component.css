@@ -1,3 +1,9 @@
 .summary-output {
   min-height: 50vh;
+  max-height: 88vh;
+  overflow: auto;}
+
+.summary-input {
+  max-height: 75vh;
+  overflow: auto;
 }

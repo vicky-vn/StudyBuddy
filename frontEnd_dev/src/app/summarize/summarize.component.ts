@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SummaryService } from '../services/summary.service';
-import { NgIf } from '@angular/common';
+import {formatDate, NgIf} from '@angular/common';
 import { Router } from '@angular/router';
 import { Summary } from '../models/summary';
 
@@ -30,13 +30,13 @@ export class SummarizeComponent {
   ) {
     this.summaryForm = this.fb.group({
       session_name: ['', Validators.required],
-      input_text: ['', Validators.required]
+      input_text: ['', Validators.required],
+      language: ['English', Validators.required]
     });
   }
 
   selectInputMethod(method: string): void {
     this.selectedInputMethod = method;
-    // Reset the form control for input_text and file selection when switching
     if (method === 'file') {
       this.summaryForm.patchValue({ input_text: '' });
       this.selectedFile = null;
@@ -45,9 +45,6 @@ export class SummarizeComponent {
     }
   }
 
-  /**
-   * Sets the selected difficulty level.
-   */
   selectDifficulty(difficulty: string): void {
     this.selectedDifficulty = difficulty;
   }
@@ -66,50 +63,51 @@ export class SummarizeComponent {
         this.error = 'Please select a file.';
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileContent = reader.result as string;
-        // Patch the file's text content into the form control
-        this.summaryForm.patchValue({ input_text: fileContent });
-        this.submitSummary();
-      };
-      reader.onerror = () => {
-        this.error = 'Error reading file.';
-      };
-      reader.readAsText(this.selectedFile);
+
+      const formData = new FormData();
+      formData.append('session_name', this.summaryForm.get('session_name')?.value);
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+      formData.append('language', this.summaryForm.get('language')?.value);
+      console.log(formData);
+      this.submitSummary(formData);
     } else {
-      // For text input, just validate and submit the form
       if (this.summaryForm.valid) {
-        this.submitSummary();
+        const formData = new FormData();
+        formData.append('session_name', this.summaryForm.get('session_name')?.value);
+        formData.append('input_text', this.summaryForm.get('input_text')?.value);
+        formData.append('language', this.summaryForm.get('language')?.value);
+
+
+        this.submitSummary(formData);
       } else {
         this.error = 'All fields must be filled!';
       }
     }
   }
 
-  /**
-   * Submits the summary data to the backend.
-   * Expects a response containing an "id" property.
-   */
-  submitSummary(): void {
-    if (this.summaryForm.valid) {
-      // You may add additional data (like difficulty) here if needed.
-      const data = { ...this.summaryForm.value };
-      this.summaryService.addSummary(data).subscribe({
-        next: (response: any) => {
-          console.log('Response from API:', response);
-          // Navigate to the summary page using the returned id
-          this.router.navigate(['/summary', response.id], { replaceUrl: true });
-        },
-        error: (error: any) => {
-          this.error = 'Failed to create summary. Please try again.';
-          console.error('Error creating summary:', error);
-        }
-      });
-    } else {
-      this.error = 'All fields must be filled!';
-    }
-  }
+  submitSummary(formData: FormData): void {
+    this.summaryService.addSummary(formData).subscribe({
+      next: (response: any) => {
+        console.log('Response from API:', response);
 
+        this.summaryService.summarize(response.id, this.selectedDifficulty!, this.summaryForm.get('language')?.value).subscribe({
+          next: (summaryResponse: any) => {
+            console.log('Summarized data:', summaryResponse);
+            this.router.navigate(['/summary', summaryResponse.id], { replaceUrl: true });
+          },
+          error: (error: any) => {
+            this.error = 'Failed to summarize. Please try again.';
+            console.error('Error summarizing:', error);
+          }
+        });
+
+        this.router.navigate(['/summary', response.id], { replaceUrl: true });
+      },
+      error: (error: any) => {
+        this.error = 'Failed to create summary. Please try again.';
+        console.error('Error creating summary:', error);
+      }
+    });
+  }
   protected readonly SummaryService = SummaryService;
 }

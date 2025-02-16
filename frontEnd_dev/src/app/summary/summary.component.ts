@@ -3,11 +3,13 @@ import {ActivatedRoute} from '@angular/router';
 import {SummaryService} from '../services/summary.service';
 import {Summary} from '../models/summary';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {BoldPipe} from '../bold-pipe.pipe';
 
 @Component({
   selector: 'app-summary',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BoldPipe
   ],
   templateUrl: './summary.component.html',
   standalone: true,

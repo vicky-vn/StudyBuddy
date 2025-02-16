@@ -1,7 +1,7 @@
-<div class="h-100 d-flex flex-column">
-  <h1 class="py-2 mb-3 border-bottom text-center">StudyBuddy</h1>
+<div class="h-100 d-flex flex-column position-fixed border">
+  <h1 class="p-3 mb-3 border-bottom text-center">StudyBuddy</h1>
   <nav class="h-100 d-flex flex-column justify-content-between">
-    <div>
+    <div class="summary-list">
       <p *ngFor="let summary of data" class="shadow-sm p-0 rounded-2">
         <a [routerLink]="['/summary', summary._id]" class="rounded-2 p-2">{{ summary.session_name }}</a>
       </p>
