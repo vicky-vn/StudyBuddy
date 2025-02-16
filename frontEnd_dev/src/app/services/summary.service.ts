@@ -27,12 +27,22 @@ export class SummaryService {
     );
   }
 
-  addSummary(data: any) {
-    return this.http.post(this.apiUrl + "/post_user_input", data).pipe(
+  addSummary(data: any): Observable<Summary> {
+    return this.http.post<Summary>(this.apiUrl + "/post_user_input", data).pipe(
       tap(() => {
         // Emit value after successful post
         this.refreshNeeded.next();
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  summarize(id: string, difficulty: string): Observable<{ id: string; summary: string }> {
+    const payload = {
+      id,
+      difficulty_level: difficulty
+    };
+    return this.http.post<{ id: string; summary: string }>(`${this.apiUrl}/summarize`, payload).pipe(
       catchError(this.handleError)
     );
   }
