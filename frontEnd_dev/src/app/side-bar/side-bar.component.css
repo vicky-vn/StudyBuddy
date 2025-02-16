@@ -1,0 +1,21 @@
+button {
+  display: block;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  background-color: #c495fd;
+  color: black;
+  width: 100%;
+  height: 100%;
+}
+
+.summary-list {
+  max-width: 100%;
+  overflow: auto;
+}

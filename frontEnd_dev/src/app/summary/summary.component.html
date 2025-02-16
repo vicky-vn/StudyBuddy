@@ -1,0 +1,17 @@
+<div class="row w-100 h-100 d-flex">
+  <div class="summarize-window col w-50 mt-5 " [formGroup]="summaryForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="session_name" class="form-label">Name:</label>
+      <input type="text" class="form-control" formControlName="session_name" id="session_name" name="session_name" value="{{summary?.session_name}}">
+    </div>
+    <div class=" mb-3">
+      <p class="form-label fw-bold">To summarize:</p>
+      <p class="form-control summary-input" id="input_text" name="input_text" rows="10" [innerHTML]="summary?.input_text | bold"></p>
+    </div>
+  </div>
+  <div class=" w-50 mt-5">
+    <p>Summary:</p>
+    <p class="border summary-output  p-3" [innerHTML]=" summary?.summary | bold">
+    </p>
+  </div>
+</div>
