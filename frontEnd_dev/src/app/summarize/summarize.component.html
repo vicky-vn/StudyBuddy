@@ -4,10 +4,42 @@
       <label for="name" class="form-label">Name:</label>
       <input type="text" class="form-control" formControlName="session_name" id="name">
     </div>
-    <div class=" mb-3">
-      <label for="userInput" class="form-label">To summarize:</label>
-      <textarea type="textarea" class="form-control" formControlName="input_text" id="userInput" rows="10"></textarea>
+
+    <!-- Input Method Toggle -->
+    <div class="mb-3">
+      <p>Select Input Method:</p>
+      <div class="btn-group" role="group">
+        <button
+          type="button"
+          class="btn"
+          [class.btn-outline-primary]="selectedInputMethod !== 'file'"
+          [class.btn-primary]="selectedInputMethod === 'file'"
+          (click)="selectInputMethod('file')"
+        >
+          File Input
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-outline-primary]="selectedInputMethod !== 'text'"
+          [class.btn-primary]="selectedInputMethod === 'text'"
+          (click)="selectInputMethod('text')"
+        >
+          Text Input
+        </button>
+      </div>
     </div>
+
+    <div class="mb-3" *ngIf="selectedInputMethod === 'file'">
+      <label for="fileInput" class="form-label">Upload File:</label>
+      <input type="file" class="form-control" id="fileInput" (change)="onFileChange($event)">
+    </div>
+
+    <div class="mb-3" *ngIf="selectedInputMethod === 'text'">
+      <label for="userInput" class="form-label">To summarize:</label>
+      <textarea class="form-control" formControlName="input_text" id="userInput" rows="10"></textarea>
+    </div>
+
     <div class="mb-3">
       <p>Difficulty Level:</p>
       <div class="btn-group">
