@@ -34,12 +34,11 @@ revise_agent = AssistantAgent(
     llm_config={"config_list": config_list},
 )
 
-def generate_summary(input_text, difficulty_level):
-    print(f"Generating summary for input_text='{input_text}' at difficulty='{difficulty_level}'")  # Debug log
+def generate_summary(input_text, difficulty_level, language):
 
     response = revise_agent.initiate_chat(
         summary_agent,
-        message=f"Summarize this text at a '{difficulty_level}' level:\n{input_text}",
+        message=f"Summarize this text at a '{difficulty_level}' level:\n{input_text} and the language is: {language}",
         max_turns=2,
     )
 
