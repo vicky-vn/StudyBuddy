@@ -1,8 +1,8 @@
+from autogen import AssistantAgent
 import os
 import fitz
-from dotenv import load_dotenv
-from openai import OpenAI
-from autogen import ConversableAgent, UserProxyAgent, AssistantAgent, runtime_logging, Agent
+import docx
+
 
 
 def read_pdf(file_path):
@@ -13,13 +13,21 @@ def read_pdf(file_path):
     return text
 
 
+def read_docx(file_path):
+    doc = docx.Document(file_path)
+    text = "\n".join([paragraph.text for paragraph in doc.paragraphs])
+    return text
+
+def read_txt(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        text = file.read()
+    return text
+
+
 difficulty_level = 'Intermediate'
 
-# with open("info.txt", "r", encoding="utf-8") as file:
-#     text = file.read()
 
-
-text = read_pdf('text.pdf')
+text = read_docx('text.docx')
 
 language = 'English'
 
@@ -59,4 +67,3 @@ response = revise_agent.initiate_chat(
 )
 
 print(response.chat_history[-1].get('content'))
-
