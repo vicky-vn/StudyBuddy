@@ -4,11 +4,16 @@
 
 StudyBuddy is an intelligent document summarization tool that helps students efficiently process and understand their class notes by leveraging the power of OpenAI with collaborative AI agents.
 
-## 🎯 Project Overview and Goal
+## 🎯 Project Overview and Objectives
 
 StudyBuddy was designed to solve a common problem faced by students: information overload from lengthy documents and notes. Our application uses advanced AI agents to provide intelligent, contextual summaries tailored to different difficulty levels and languages, making learning more accessible and efficient.
 
-**Main Goal**: Transform lengthy academic documents into concise, understandable summaries while maintaining key information and adapting to user preferences.
+**Main Objectives:**
+- Transform lengthy academic documents into concise, understandable summaries
+- Maintain key information while adapting to user preferences
+- Support multiple document formats and languages
+- Provide an intuitive, modern web interface
+- Utilize cutting-edge AI technology for enhanced learning
 
 ## ✨ Key Features
 
@@ -38,7 +43,30 @@ StudyBuddy was designed to solve a common problem faced by students: information
 - **Session Management**: Track and organize multiple document sessions
 - **Real-time Processing**: Live feedback and status updates
 
-## 🚀 Installation Instructions
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework**: Flask (Python)
+- **AI/ML**: OpenAI GPT-4, AutoGen (Multi-agent framework)
+- **Database**: MongoDB with PyMongo
+- **Document Processing**: PyMuPDF (PDF), python-docx (Word documents)
+- **API**: RESTful architecture with Flask-CORS
+
+### Frontend
+- **Framework**: Angular 19
+- **Language**: TypeScript
+- **Build Tool**: Angular CLI
+- **Testing**: Karma, Jasmine
+
+### Key Dependencies
+- `autogen==0.7.4` - Multi-agent AI framework
+- `openai==1.63.0` - OpenAI API integration
+- `flask==3.1.0` - Web framework
+- `pymongo==4.11.1` - MongoDB driver
+- `PyMuPDF==1.25.3` - PDF processing
+- `python-docx==1.1.2` - Word document processing
+
+## 🚀 Detailed Installation Instructions
 
 ### Prerequisites
 - Python 3.8+
@@ -103,7 +131,7 @@ StudyBuddy was designed to solve a common problem faced by students: information
    - Open your browser and navigate to `http://localhost:4200`
    - Backend API runs on `http://localhost:5000`
 
-## 💡 Usage Example
+## 💡 Usage Examples
 
 ### Basic Document Summarization
 
@@ -113,28 +141,44 @@ StudyBuddy was designed to solve a common problem faced by students: information
 4. **Create a session** with a descriptive name
 5. **Generate summary** and review the AI-processed result
 
+### API Usage Examples
 
-## 🛠️ Tech Stack
+```python
+# Example API calls
 
-### Backend
-- **Framework**: Flask (Python)
-- **AI/ML**: OpenAI GPT-4, AutoGen (Multi-agent framework)
-- **Database**: MongoDB with PyMongo
-- **Document Processing**: PyMuPDF (PDF), python-docx (Word documents)
-- **API**: RESTful architecture with Flask-CORS
+# Upload document and create session
+POST /post_user_input
+{
+    "session_name": "Biology Chapter 5",
+    "input_text": "Your document content...",
+    "language": "English"
+}
 
-### Frontend
-- **Framework**: Angular 19
-- **Language**: TypeScript
-- **Build Tool**: Angular CLI
-  
-### Key Dependencies
-- `autogen==0.7.4` - Multi-agent AI framework
-- `openai==1.63.0` - OpenAI API integration
-- `flask==3.1.0` - Web framework
-- `pymongo==4.11.1` - MongoDB driver
-- `PyMuPDF==1.25.3` - PDF processing
-- `python-docx==1.1.2` - Word document processing
+# Generate summary
+POST /summarize
+{
+    "id": "document_id",
+    "difficulty_level": "Intermediate",
+    "language": "English"
+}
+
+# Retrieve all sessions
+GET /get_user_input
+```
+
+### Command Line Usage
+
+```bash
+# Start the application
+python app.py
+
+# In another terminal, start frontend
+cd frontEnd_dev
+ng serve
+
+# Access via browser
+open http://localhost:4200
+```
 
 ## 📁 Project Structure
 
@@ -146,18 +190,82 @@ StudyBuddy/
 ├── requirements.txt       # Python dependencies
 ├── frontEnd_dev/          # Angular frontend
 │   ├── src/              # Source code
-│   ├── public/           # Static assets
+│   │   ├── app/          # Angular components
+│   │   └── assets/       # Static assets
+│   ├── public/           # Public files
 │   └── package.json      # Node.js dependencies
-├── .gitignore            # Git ignore rules
-└── README.md             # Project documentation
+├── .cache/               # Build cache
+├── dist/                 # Distribution files
+├── .gitignore           # Git ignore rules
+└── README.md            # Project documentation
 ```
 
+## 🤝 Contribution Guidelines
 
+We welcome contributions from the community! Here's how you can help:
+
+### Getting Started
+1. **Fork the repository** and create your feature branch
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+2. **Set up development environment** following the installation instructions
+
+3. **Make your changes** and ensure they follow our coding standards
+
+### Code Standards
+- **Python**: Follow PEP 8 guidelines
+- **TypeScript/Angular**: Follow Angular style guide
+- **Documentation**: Update README and add inline comments for complex logic
+- **Testing**: Add tests for new features
+
+### Submission Process
+1. **Commit your changes**
+   ```bash
+   git commit -m 'Add amazing feature'
+   ```
+
+2. **Push to your branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+3. **Open a Pull Request** with:
+   - Clear description of changes
+   - Screenshots for UI changes
+   - Test results
+
+### Areas for Contribution
+- 🐛 **Bug fixes** and performance improvements
+- 🌟 **New features** like additional file format support
+- 🌍 **Internationalization** and language support
+- 📚 **Documentation** improvements
+- 🧪 **Testing** coverage expansion
+- 🎨 **UI/UX** enhancements
+
+### Development Guidelines
+- Write clear commit messages
+- Keep PRs focused and atomic
+- Update documentation for new features
+- Test thoroughly before submitting
+- Respect existing code style and architecture
 
 ## 📄 License
 
-This project was created for WinHacks 2025. Please refer to the repository for licensing information.
+This project was created for WinHacks 2025. The codebase is available for educational and non-commercial use. Please refer to the repository for specific licensing terms.
+
+### Contributors
+- **[Vignesh Natarajan](https://github.com/vicky-vn)** - Project Lead & Backend Development
+- **[Stanislav Nehretskyi](https://github.com/snehretskyi)** - Frontend Development
+
+### Acknowledgments
+- OpenAI for providing the GPT API
+- AutoGen framework for multi-agent capabilities
+- WinHacks 2025 for the hackathon opportunity
 
 ---
 
 **Built with ❤️ by Team Null Terminators**
+
+*For support, questions, or feature requests, please [open an issue](https://github.com/vicky-vn/StudyBuddy/issues) on GitHub.*
